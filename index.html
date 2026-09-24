@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="km"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Vidsave — ទាញយកវីដេអូ និងតន្ត្រីពី Social Media</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Khmer:wght@400;600;800&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--b:#2563eb;--p:#7c5cf0;--tx:#0f1b3d;--mut:#5b6787;--bd:#e3e9f7;--bg:#f4f7ff;--card:#fff;--g:#059669}
+@media(prefers-color-scheme:dark){:root{--tx:#e8edff;--mut:#9aa6c8;--bd:#25305a;--bg:#0b1226;--card:#131c3a}}
+*{box-sizing:border-box}body{margin:0;font:16px/1.6 Inter,"Noto Sans Khmer",system-ui,sans-serif;color:var(--tx);background:radial-gradient(800px 380px at 80% -50px,rgba(124,92,240,.16),transparent),var(--bg);min-height:100vh;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+.w{max-width:560px;margin:auto;padding:0 18px}
+header{display:flex;align-items:center;gap:10px;padding:18px 0;font-weight:800;font-size:20px}
+.lg{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,var(--b),var(--p));display:grid;place-items:center;color:#fff;flex:none}
+h1{font-size:30px;line-height:1.35;margin:10px 0 6px}h1 span{background:linear-gradient(90deg,var(--b),var(--p));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--mut);margin:0 0 20px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:16px;box-shadow:0 10px 30px rgba(37,99,235,.08)}
+.in{display:flex;align-items:center;gap:8px;border:1.5px solid var(--bd);border-radius:14px;padding:4px 6px 4px 12px;background:var(--bg)}
+.in:focus-within{border-color:var(--b)}.in svg{width:20px;height:20px;stroke:var(--b);fill:none;stroke-width:2;flex:none}
+.in input{flex:1;min-width:0;border:0;background:none;font:inherit;color:var(--tx);padding:10px 4px;outline:0}
+.pb{border:0;background:none;color:var(--b);font:600 14px inherit;padding:8px 10px;cursor:pointer}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;border:0;border-radius:14px;padding:14px;font:700 16px inherit;color:#fff;background:linear-gradient(90deg,var(--b),#4f7df3);cursor:pointer;box-shadow:0 8px 20px rgba(37,99,235,.3)}
+.btn:disabled{opacity:.6;cursor:wait}.btn svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2.2}
+.err{color:#dc2626;font-size:14px;margin-top:10px;min-height:0}
+h3{margin:22px 0 12px;font-size:15px}
+.pl{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 8px}
+.pl div{text-align:center;font-size:12px;color:var(--mut);font-weight:600}.pl i{display:grid;place-items:center;width:52px;height:52px;border-radius:16px;margin:0 auto 6px;font-style:normal;font-size:24px;color:#fff;font-weight:800;box-shadow:0 6px 14px rgba(0,0,0,.12)}
+.pl .off{opacity:.45}
+.tip{display:flex;gap:10px;background:color-mix(in srgb,var(--b) 9%,var(--card));border:1px solid var(--bd);border-radius:16px;padding:12px 14px;margin-top:22px;font-size:14px}
+.tip b{display:block}.tip span{color:var(--mut)}
+.res{display:none}.res.on{display:block}
+.th{position:relative;border-radius:16px;overflow:hidden;background:#0b1226;aspect-ratio:16/9}.th img{width:100%;height:100%;object-fit:cover;display:block}
+.th s{position:absolute;inset:0;display:grid;place-items:center;text-decoration:none}.th s:after{content:"▶";width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.92);color:var(--b);display:grid;place-items:center;font-size:20px;padding-left:4px}
+.ti{font-weight:800;font-size:18px;margin:12px 0 2px;line-height:1.4;word-break:break-word}.mt{color:var(--mut);font-size:13px;margin-bottom:6px}
+.q{display:flex;align-items:center;gap:12px;padding:13px 14px;border:1.5px solid var(--bd);border-radius:14px;margin-bottom:10px;cursor:pointer;font-size:14px}
+.q input{display:none}.q .r{width:20px;height:20px;border-radius:50%;border:2px solid var(--bd);flex:none;position:relative}
+.q.sel{border-color:var(--b);background:color-mix(in srgb,var(--b) 8%,var(--card))}.q.sel .r{border-color:var(--b)}.q.sel .r:after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--b)}
+.q b{min-width:56px}.q .d{flex:1;color:var(--mut)}.q .f{font-weight:600}.q .z{min-width:64px;text-align:right;color:var(--mut)}
+.back{background:none;border:0;color:var(--b);font:600 14px inherit;cursor:pointer;padding:0 0 10px}
+.bar{height:8px;background:var(--bd);border-radius:6px;overflow:hidden;margin-top:12px;display:none}.bar i{display:block;height:100%;width:40%;background:linear-gradient(90deg,var(--b),var(--p));border-radius:6px;animation:mv 1.2s ease-in-out infinite}
+@keyframes mv{0%{margin-left:-40%}100%{margin-left:100%}}
+footer{padding:26px 0 30px;color:var(--mut);font-size:12.5px;line-height:1.7;text-align:center}
+
+/* ---- Desktop layout: a real two-column workspace, not a stretched phone card ---- */
+@media(min-width:900px){
+  body{padding-top:0}
+  .w{max-width:1080px;padding:0 32px}
+  header{padding:22px 0;font-size:19px}
+  .layout{display:grid;grid-template-columns:1.1fr .8fr;gap:28px;align-items:start}
+  h1{font-size:40px;max-width:560px}
+  .sub{font-size:16.5px;max-width:520px}
+  .card{padding:22px;position:sticky;top:24px}
+  .pl{grid-template-columns:repeat(3,1fr);gap:10px}
+  .side{display:flex;flex-direction:column;gap:16px}
+  .side .card{position:static;padding:18px 20px}
+  .tip{margin-top:0}
+  #res.on{display:grid;grid-template-columns:.9fr 1.1fr;gap:28px;align-items:start}
+  #res .back{grid-column:1/-1}
+  #res .th{max-height:320px}
+  #res .card:first-of-type{position:sticky;top:24px}
+  footer{text-align:left}
+}
+</style></head><body><div class="w">
+<header><span class="lg"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg></span>Vidsave</header>
+
+<div id="home">
+<div class="layout">
+<div>
+<h1>ទាញយកវីដេអូ និងតន្ត្រី <span>ពី Social Media</span></h1>
+<p class="sub">បិទភ្ជាប់តំណវីដេអូសាធារណៈ ហើយជ្រើសរើសគុណភាពដែលអ្នកចង់បាន។</p>
+<div class="card">
+<div class="in"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
+<input id="url" type="url" inputmode="url" autocomplete="off" placeholder="បិទភ្ជាប់តំណនៅទីនេះ…"><button class="pb" onclick="paste()">បិទភ្ជាប់</button></div>
+<button class="btn" id="go" onclick="check()"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg><span>រក្សាទុកវីដេអូ</span></button>
+<div class="err" id="e1"></div></div>
+</div>
+<div class="side">
+<div class="card">
+<h3 style="margin-top:0">វេទិកាដែលគាំទ្រ</h3>
+<div class="pl">
+<div><i style="background:#ff0000">▶</i>YouTube</div><div><i style="background:linear-gradient(135deg,#f9a03f,#dd2a7b,#8134af)">◎</i>Instagram</div><div><i style="background:#111">♪</i>TikTok</div><div><i style="background:#1877f2">f</i>Facebook</div>
+<div><i style="background:#000">𝕏</i>X / Twitter</div><div><i style="background:#101010">@</i>Threads</div><div><i style="background:#e60023">P</i>Pinterest</div><div><i style="background:#ff4500">R</i>Reddit</div>
+<div><i style="background:#229ed9">✈</i>Telegram</div><div><i style="background:#fffc00;color:#111">👻</i>Snapchat</div><div class="off"><i style="background:#25d366">✆</i>WhatsApp<br><small>មិនគាំទ្រ</small></div>
+</div>
+</div>
+<div class="tip"><span>💡</span><div><b>គន្លឹះ</b><span>ចម្លងតំណវីដេអូ រូបភាព ឬ Story សាធារណៈ ពីកម្មវិធីដែលអ្នកចូលចិត្ត ហើយបិទភ្ជាប់នៅខាងលើ។ សម្រាប់ Telegram សូមប្រើតំណទៅកាន់ Post ជាក់លាក់ (ឧ. t.me/channel/123)។</span></div></div>
+</div>
+</div>
+</div>
+
+<div id="res" class="res">
+<button class="back" onclick="back()">← ត្រឡប់ក្រោយ</button>
+<div class="card"><div class="th"><img id="th" alt=""><s></s></div>
+<div class="ti" id="ti"></div><div class="mt" id="mt"></div></div>
+<div class="card">
+<h3 style="margin-top:0">ជ្រើសរើសគុណភាពវីដេអូ</h3><div id="vq"></div>
+<h3>តន្ត្រី (សំឡេងតែប៉ុណ្ណោះ)</h3><div id="aq"></div>
+<div id="subwrap" style="display:none"><h3>Subtitle</h3><div id="sq"></div></div>
+<button class="btn" id="dl" onclick="download()"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg><span id="dlt">ទាញយកឥឡូវនេះ</span></button>
+<div class="bar" id="bar"><i></i></div><div class="err" id="e2"></div></div></div>
+
+<footer>សម្រាប់មាតិកាសាធារណៈដែលអ្នកជាម្ចាស់ ឬមានសិទ្ធិទាញយកតែប៉ុណ្ណោះ។ សូមគោរពច្បាប់រក្សាសិទ្ធិ និងលក្ខខណ្ឌប្រើប្រាស់របស់វេទិកានីមួយៗ។<br>វីដេអូឯកជន ឬត្រូវការចូលគណនី មិនត្រូវបានគាំទ្រទេ។</footer>
+</div>
+<script>
+const $=s=>document.querySelector(s);let D=null,sel=null;
+const M={
+  private:'វីដេអូនេះមិនមែនសាធារណៈ ឬត្រូវការចូលគណនី ដូច្នេះមិនអាចទាញយកបានទេ។',
+  bot:'វេទិកានេះកំពុងទាមទារការផ្ទៀងផ្ទាត់បន្ថែម។ សូមរង់ចាំបន្តិច ហើយព្យាយាមម្តងទៀត។',
+  unsupported:'តំណនេះមិនត្រូវបានគាំទ្រទេ។ សម្រាប់ Telegram សូមប្រើតំណទៅកាន់ Post ជាក់លាក់ (ឧ. t.me/channel/123)។',
+  nomedia:'រកមិនឃើញវីដេអូនៅក្នុង Post នេះទេ (ប្រហែលជាជារូបភាព ឬអត្ថបទតែប៉ុណ្ណោះ)។',
+  busy:'ម៉ាស៊ីនបម្រើកំពុងរវល់ សូមព្យាយាមម្តងទៀតក្នុងបន្តិចទៀត។',
+  toolarge:'ឯកសារធំពេកសម្រាប់ទាញយក។ សូមជ្រើសគុណភាពទាបជាងនេះ។',
+  failed:'មិនអាចទាញយកបានទេ។ សូមពិនិត្យតំណ ហើយព្យាយាមម្តងទៀត។'
+};
+const fmt=b=>!b?'':b>=1e9?(b/1e9).toFixed(1)+' GB':b>=1e6?Math.round(b/1e6)+' MB':Math.max(1,Math.round(b/1e3))+' KB';
+const dur=s=>s?Math.floor(s/60)+':'+String(Math.round(s%60)).padStart(2,'0'):'';
+const lab=h=>h>=2160?'4K':h>=1440?'2K':h>=1080?'Full HD':h>=720?'HD':h>=480?'SD':'';
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+async function paste(){try{$('#url').value=await navigator.clipboard.readText()}catch(e){$('#url').focus()}}
+async function check(){const u=$('#url').value.trim(),b=$('#go');$('#e1').textContent='';if(!u)return $('#e1').textContent='សូមបិទភ្ជាប់តំណវីដេអូជាមុនសិន។';
+  b.disabled=true;b.querySelector('span').textContent='កំពុងស្វែងរក…';
+  try{const r=await fetch('/api/info?url='+encodeURIComponent(u)),d=await r.json();if(!r.ok)throw new Error(d.error);D=d;D.url=u;show()}
+  catch(e){$('#e1').textContent=M[e.message]||M.failed}
+  b.disabled=false;b.querySelector('span').textContent='រក្សាទុកវីដេអូ'}
+function opt(k,html,size){return `<label class="q" data-k="${k}" onclick="pick('${k}')"><input type="radio" name="q"><span class="r"></span>${html}<span class="z">${fmt(size)}</span></label>`}
+function show(){$('#th').src=D.thumb;$('#ti').textContent=D.title;$('#mt').textContent=[D.duration&&'រយៈពេល៖ '+dur(D.duration),D.source&&'ប្រភព៖ '+D.source].filter(Boolean).join(' · ');
+  $('#vq').innerHTML=D.videos.length?D.videos.map(v=>opt('v'+v.height,`<b>${v.height?v.height+'p':'ដើម'}</b><span class="d">${v.height?lab(v.height):'គុណភាពដើម'}</span><span class="f">MP4</span>`,v.size)).join(''):'<div class="mt">គ្មានទម្រង់វីដេអូ</div>';
+  $('#aq').innerHTML=opt('a','<b>MP3</b><span class="d">តន្ត្រី</span><span class="f">សំឡេង</span>',D.audioSize);
+  const subs=D.subtitles||[];
+  $('#subwrap').style.display=subs.length?'':'none';
+  $('#sq').innerHTML=subs.map(s=>opt('s'+s.lang,`<b>${esc(s.lang)}</b><span class="d">${esc(s.name)}${s.auto?' (auto)':''}</span><span class="f">SRT</span>`)).join('');
+  $('#home').style.display='none';$('#res').classList.add('on');scrollTo(0,0);pick(D.videos.length?'v'+D.videos[0].height:'a')}
+function pick(k){sel=k;document.querySelectorAll('.q').forEach(e=>e.classList.toggle('sel',e.dataset.k===k))}
+function back(){$('#res').classList.remove('on');$('#home').style.display='';$('#e2').textContent='';$('#bar').style.display='none'}
+async function download(){const b=$('#dl'),e=$('#e2');e.textContent='';b.disabled=true;$('#dlt').textContent='កំពុងរៀបចំឯកសារ…';$('#bar').style.display='block';
+  try{const isSub=sel&&sel[0]==='s',isAud=sel==='a',type=isSub?'subtitle':isAud?'audio':'video',lang=isSub?sel.slice(1):undefined,h=type==='video'?+sel.slice(1):undefined;
+    const r=await fetch('/api/prepare',{method:'POST',body:JSON.stringify({url:D.url,type,h,lang,title:D.title})}),d=await r.json();if(!r.ok)throw new Error(d.error);
+    for(;;){await new Promise(z=>setTimeout(z,1500));const j=await(await fetch('/api/job/'+d.id)).json();
+      if(j.state==='ready'){location.href='/api/file/'+d.id;break}if(j.state==='error')throw new Error(j.msg)}}
+  catch(x){e.textContent=M[x.message]||M.failed}
+  b.disabled=false;$('#dlt').textContent='ទាញយកឥឡូវនេះ';$('#bar').style.display='none'}
+$('#url').addEventListener('keydown',e=>e.key==='Enter'&&check());
+</script></body></html>
